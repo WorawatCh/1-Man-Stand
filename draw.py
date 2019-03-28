@@ -13,17 +13,34 @@ def draw_background():
     arcade.draw_lrtb_rectangle_filled(0,
                                       SCREEN_WIDTH,
                                       SCREEN_HEIGHT,
-                                      590,
+                                      600,
                                       arcade.color.SKY_BLUE)
 
     arcade.draw_lrtb_rectangle_filled(0,
                                       SCREEN_WIDTH,
-                                      590,
+                                      600,
                                       0,
                                       arcade.color.DARK_SPRING_GREEN)
 
 def draw_line():
-    arcade.draw_line(0,550,SCREEN_WIDTH,550,arcade.color.BLACK,4)
+    arcade.draw_line(150,0,
+                    150,600,
+                    arcade.color.BLACK,4)
+    arcade.draw_line(0,500,
+                     SCREEN_WIDTH,500,
+                     arcade.color.BLACK,4)
+    arcade.draw_line(0, 400,   
+                     SCREEN_WIDTH, 400, 
+                     arcade.color.BLACK, 4)
+    arcade.draw_line(0, 300, 
+                     SCREEN_WIDTH, 300, 
+                     arcade.color.BLACK, 4)
+    arcade.draw_line(0, 200, 
+                     SCREEN_WIDTH, 200, 
+                     arcade.color.BLACK, 4)
+    arcade.draw_line(0, 100, 
+                     SCREEN_WIDTH, 100, 
+                     arcade.color.BLACK, 4)
 
 def main():
     """
