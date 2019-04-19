@@ -8,7 +8,7 @@ SCREEN_TITLE = "Drawing With Functions Example"
 
 
 def draw_background():
-   
+
     # Draw the sky in the top two-thirds
     arcade.draw_lrtb_rectangle_filled(0,
                                       SCREEN_WIDTH,
@@ -22,25 +22,33 @@ def draw_background():
                                       0,
                                       arcade.color.DARK_SPRING_GREEN)
 
+
 def draw_line():
-    arcade.draw_line(150,0,
-                    150,600,
-                    arcade.color.BLACK,4)
-    arcade.draw_line(0,500,
-                     SCREEN_WIDTH,500,
-                     arcade.color.BLACK,4)
-    arcade.draw_line(0, 400,   
-                     SCREEN_WIDTH, 400, 
+    arcade.draw_line(150, 0,
+                     150, 600,
                      arcade.color.BLACK, 4)
-    arcade.draw_line(0, 300, 
-                     SCREEN_WIDTH, 300, 
+    arcade.draw_line(0, 500,
+                     SCREEN_WIDTH, 500,
                      arcade.color.BLACK, 4)
-    arcade.draw_line(0, 200, 
-                     SCREEN_WIDTH, 200, 
+    arcade.draw_line(0, 400,
+                     SCREEN_WIDTH, 400,
                      arcade.color.BLACK, 4)
-    arcade.draw_line(0, 100, 
-                     SCREEN_WIDTH, 100, 
+    arcade.draw_line(0, 300,
+                     SCREEN_WIDTH, 300,
                      arcade.color.BLACK, 4)
+    arcade.draw_line(0, 200,
+                     SCREEN_WIDTH, 200,
+                     arcade.color.BLACK, 4)
+    arcade.draw_line(0, 100,
+                     SCREEN_WIDTH, 100,
+                     arcade.color.BLACK, 4)
+
+
+def draw_player():
+    player = arcade.Sprite('images/soilder.png')
+    player.set_position(80, 300)
+    player.draw()
+
 
 def main():
     """
@@ -56,6 +64,7 @@ def main():
     # Call our drawing functions.
     draw_background()
     draw_line()
+    draw_player()
 
     # Finish the render.
     # Nothing will be drawn without this.
