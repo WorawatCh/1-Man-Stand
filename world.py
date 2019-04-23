@@ -1,79 +1,48 @@
-# Library imports
 import arcade
 
-# Constants - variables that do not change
+from model import Player, World
+
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 700
-SCREEN_TITLE = "Drawing With Functions Example"
 
 
-def draw_background():
+class ModelSprite(arcade.Sprite):
+    def __init__(self, *args, **kwargs):
+        self.model = kwargs.pop('model', None)
 
-    # Draw the sky in the top two-thirds
-    arcade.draw_lrtb_rectangle_filled(0,
-                                      SCREEN_WIDTH,
-                                      SCREEN_HEIGHT,
-                                      600,
-                                      arcade.color.SKY_BLUE)
+        super().__init__(*args, **kwargs)
 
-    arcade.draw_lrtb_rectangle_filled(0,
-                                      SCREEN_WIDTH,
-                                      600,
-                                      0,
-                                      arcade.color.DARK_SPRING_GREEN)
+    def sync_with_model(self):
+        if self.model:
+            self.set_position(self.model.x, self.model.y)
 
-
-def draw_line():
-    arcade.draw_line(150, 0,
-                     150, 600,
-                     arcade.color.BLACK, 4)
-    arcade.draw_line(0, 500,
-                     SCREEN_WIDTH, 500,
-                     arcade.color.BLACK, 4)
-    arcade.draw_line(0, 400,
-                     SCREEN_WIDTH, 400,
-                     arcade.color.BLACK, 4)
-    arcade.draw_line(0, 300,
-                     SCREEN_WIDTH, 300,
-                     arcade.color.BLACK, 4)
-    arcade.draw_line(0, 200,
-                     SCREEN_WIDTH, 200,
-                     arcade.color.BLACK, 4)
-    arcade.draw_line(0, 100,
-                     SCREEN_WIDTH, 100,
-                     arcade.color.BLACK, 4)
+    def draw(self):
+        self.sync_with_model()
+        super().draw()
 
 
-def draw_player():
-    player = arcade.Sprite('images/soilder.png')
-    player.set_position(80, 300)
-    player.draw()
+class SpaceGameWindow(arcade.Window):
+    def __init__(self, width, height):
+        super().__init__(width, height)
+
+        self.background = arcade.load_texture('images/background.png')
+        self.world = World(width, height)
+        self.player_sprite = ModelSprite(
+            'images/soilder.png', model=self.world.player)
+
+    def on_draw(self):
+        arcade.start_render()
+        arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
+                                      SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
+        self.player_sprite.draw()
+
+    def update(self, delta):
+        self.world.update(delta)
+
+    def on_key_press(self, key, key_modifiers):
+        self.world.on_key_press(key, key_modifiers)
 
 
-def main():
-    """
-    This is the main program.
-    """
-
-    # Open the window
-    arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-
-    # Start the render process. This must be done before any drawing commands.
-    arcade.start_render()
-
-    # Call our drawing functions.
-    draw_background()
-    draw_line()
-    draw_player()
-
-    # Finish the render.
-    # Nothing will be drawn without this.
-    # Must happen after all draw commands
-    arcade.finish_render()
-
-    # Keep the window up until someone closes it.
+if __name__ == '__main__':
+    window = SpaceGameWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
     arcade.run()
-
-
-if __name__ == "__main__":
-    main()
