@@ -5,7 +5,6 @@ from model import Player, World
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 700
 
-
 class ModelSprite(arcade.Sprite):
     def __init__(self, *args, **kwargs):
         self.model = kwargs.pop('model', None)
