@@ -3,12 +3,18 @@ import arcade.key
 DIR_STILL = 0
 DIR_UP = 1
 DIR_DOWN = 3
+DIR_LEFT = 4
+DIR_RIGHT = 2
 
 DIR_OFFSET = {DIR_STILL: (0, 0),
               DIR_UP: (0, 1),
-              DIR_DOWN: (0, -1)}
+              DIR_DOWN: (0, -1),
+              DIR_LEFT: (-1, 0),
+              DIR_RIGHT: (1,0)}
 
 STOP_MOVE = True
+MAX_LANE = 600
+MIN_LANE = 100
 
 
 class Player:
@@ -21,15 +27,38 @@ class Player:
         self.wait_time = 0
 
     def update(self, delta):
-       global STOP_MOVE
+        # if self.y == MAX_LANE:
+        #     self.y = 600
+        # elif self.y == MIN_LANE:
+        #     self.y = 100
+        # else:
+            self.move(delta)
 
-       if STOP_MOVE:
+      
+    def move(self, delta):
+          global STOP_MOVE
+          
+          if STOP_MOVE:
            self.direction = DIR_STILL
            STOP_MOVE = False
-       else:
+          else:
            self.x += DIR_OFFSET[self.direction][0] * 100
            self.y += DIR_OFFSET[self.direction][1] * 100
            STOP_MOVE = True
+
+class Zombie:
+
+    def __init__(self, world, x, y):
+        self.world = world
+        self.x = x
+        self.y = y
+        self.wait_time = 0
+        self.direction = DIR_RIGHT
+
+    def update(self, delta):
+        self.x = DIR_RIGHT
+        self.y = DIR_RIGHT
+
 
 class World:
     def __init__(self, width, height):
@@ -37,9 +66,11 @@ class World:
         self.height = height
 
         self.player = Player(self, 80, 300)
+        self.zombie = Zombie(self, 80, 300)
 
     def update(self, delta):
         self.player.update(delta)
+        self.zombie.update(delta)
 
     def on_key_press(self, key, key_modifiers):
         if key == arcade.key.UP:

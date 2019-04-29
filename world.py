@@ -28,12 +28,15 @@ class SpaceGameWindow(arcade.Window):
         self.world = World(width, height)
         self.player_sprite = ModelSprite(
             'images/soilder.png', model=self.world.player)
+        self.zombie_sprite = ModelSprite(
+            'images/zombie.png',model=self.world.zombie)
 
     def on_draw(self):
         arcade.start_render()
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                       SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
         self.player_sprite.draw()
+        self.zombie_sprite.draw()
 
     def update(self, delta):
         self.world.update(delta)
