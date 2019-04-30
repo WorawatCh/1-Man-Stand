@@ -60,16 +60,19 @@ class Zombie:
        
 class Bullet:
     BULLET_SPEED = 5
+    DIR_HORIZONTAL = 0
 
     def __init__(self, world, x, y):
         self.world = world
         self.x = x
         self.y = y
-        self.wait_time = 0
+        self.direction = Bullet.DIR_HORIZONTAL
 
     def update(self, delta):
-        self.x = DIR_STILL
-
+        if self.x > self.world.width:
+                self.x = 200
+        self.x += 5
+            
 class World:
     def __init__(self, width, height):
         self.width = width
@@ -89,5 +92,8 @@ class World:
             self.player.direction = DIR_UP
         elif key == arcade.key.DOWN:
             self.player.direction = DIR_DOWN
+        elif key == arcade.key.SPACE:
+            self.bullet.update()
+
 
 

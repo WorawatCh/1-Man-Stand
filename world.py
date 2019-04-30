@@ -25,6 +25,7 @@ class SpaceGameWindow(arcade.Window):
         super().__init__(width, height)
 
         self.bullet_list = None
+        self.score = 0
 
         self.background = arcade.load_texture('images/background.png')
         self.world = World(width, height)
@@ -42,12 +43,14 @@ class SpaceGameWindow(arcade.Window):
                                       SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
         self.player_sprite.draw()
         self.zombie_sprite.draw()
+        self.laser_sprite.draw()
 
     def update(self, delta):
         self.world.update(delta)
 
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
+    
 
 
 if __name__ == '__main__':
