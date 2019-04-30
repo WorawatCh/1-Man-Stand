@@ -1,6 +1,6 @@
 import arcade
 
-from model import Player, World
+from model import Player, World, Bullet
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 700
@@ -24,12 +24,17 @@ class SpaceGameWindow(arcade.Window):
     def __init__(self, width, height):
         super().__init__(width, height)
 
+        self.bullet_list = None
+
         self.background = arcade.load_texture('images/background.png')
         self.world = World(width, height)
         self.player_sprite = ModelSprite(
             'images/soilder.png', model=self.world.player)
         self.zombie_sprite = ModelSprite(
             'images/zombie.png',model=self.world.zombie)
+        self.laser_sprite = ModelSprite(
+            'images/laser.png', model=self.world.bullet)
+
 
     def on_draw(self):
         arcade.start_render()

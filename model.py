@@ -58,7 +58,17 @@ class Zombie:
     def update(self, delta):
         self.x = DIR_STILL
        
+class Bullet:
+    BULLET_SPEED = 5
 
+    def __init__(self, world, x, y):
+        self.world = world
+        self.x = x
+        self.y = y
+        self.wait_time = 0
+
+    def update(self, delta):
+        self.x = DIR_STILL
 
 class World:
     def __init__(self, width, height):
@@ -67,13 +77,17 @@ class World:
 
         self.player = Player(self, 80, 300)
         self.zombie = Zombie(self, 80, 300)
+        self.bullet = Bullet(self, 85,300)
 
     def update(self, delta):
         self.player.update(delta)
         self.zombie.update(delta)
+        self.bullet.update(delta)
 
     def on_key_press(self, key, key_modifiers):
         if key == arcade.key.UP:
             self.player.direction = DIR_UP
         elif key == arcade.key.DOWN:
             self.player.direction = DIR_DOWN
+
+
