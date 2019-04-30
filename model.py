@@ -1,16 +1,17 @@
 import arcade.key
 
 DIR_STILL = 0
+
 DIR_UP = 1
+DIR_RIGHT = 2
 DIR_DOWN = 3
 DIR_LEFT = 4
-DIR_RIGHT = 2
 
-DIR_OFFSET = {DIR_STILL: (0, 0),
+DIR_OFFSET = {DIR_STILL: (0,0),
               DIR_UP: (0, 1),
+              DIR_RIGHT: (1, 0),
               DIR_DOWN: (0, -1),
-              DIR_LEFT: (-1, 0),
-              DIR_RIGHT: (1,0)}
+              DIR_LEFT: (-1, 0)}
 
 STOP_MOVE = True
 MAX_LANE = 600
@@ -53,11 +54,10 @@ class Zombie:
         self.x = x
         self.y = y
         self.wait_time = 0
-        self.direction = DIR_RIGHT
 
     def update(self, delta):
-        self.x = DIR_RIGHT
-        self.y = DIR_RIGHT
+        self.x = DIR_STILL
+       
 
 
 class World:
