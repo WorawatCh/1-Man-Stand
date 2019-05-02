@@ -19,7 +19,6 @@ class ModelSprite(arcade.Sprite):
         self.sync_with_model()
         super().draw()
 
-
 class SpaceGameWindow(arcade.Window):
     def __init__(self, width, height):
         super().__init__(width, height)
@@ -34,7 +33,7 @@ class SpaceGameWindow(arcade.Window):
         self.zombie_sprite = ModelSprite(
             'images/zombie.png',model=self.world.zombie)
         self.laser_sprite = ModelSprite(
-            'images/laser.png', model=self.world.bullet)
+            'images/laser.png', model=self.world.player.bullet1)
 
 
     def on_draw(self):
