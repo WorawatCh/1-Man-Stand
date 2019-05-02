@@ -14,8 +14,8 @@ DIR_OFFSET = {DIR_STILL: (0,0),
               DIR_LEFT: (-1, 0)}
 
 STOP_MOVE = True
-MAX_LANE = 600
-MIN_LANE = 100
+MAX_LANE = 650
+MIN_LANE = 0
 
 
 class Player:
@@ -28,24 +28,10 @@ class Player:
         self.wait_time = 0
 
     def update(self, delta):
-        # if self.y == MAX_LANE:
-        #     self.y = 600
-        # elif self.y == MIN_LANE:
-        #     self.y = 100
-        # else:
-            self.move(delta)
-
-      
-    def move(self, delta):
-          global STOP_MOVE
-          
-          if STOP_MOVE:
-           self.direction = DIR_STILL
-           STOP_MOVE = False
-          else:
-           self.x += DIR_OFFSET[self.direction][0] * 100
-           self.y += DIR_OFFSET[self.direction][1] * 100
-           STOP_MOVE = True
+        if self.y >= MAX_LANE:
+            self.y -=100
+        elif self.y <= MIN_LANE:
+            self.y += 100
 
 class Zombie:
 
@@ -56,7 +42,9 @@ class Zombie:
         self.wait_time = 0
 
     def update(self, delta):
-        self.x = DIR_STILL
+       if self.x == 180:
+           self.x = self.world.width
+       self.x -= 10
        
 class Bullet:
     BULLET_SPEED = 5
@@ -79,8 +67,8 @@ class World:
         self.height = height
 
         self.player = Player(self, 80, 300)
-        self.zombie = Zombie(self, 80, 300)
-        self.bullet = Bullet(self, 85,300)
+        self.zombie = Zombie(self, self.width, 300)
+        self.bullet = Bullet(self, 80,270)
 
     def update(self, delta):
         self.player.update(delta)
@@ -90,8 +78,12 @@ class World:
     def on_key_press(self, key, key_modifiers):
         if key == arcade.key.UP:
             self.player.direction = DIR_UP
+            self.player.y += 100
+            self.bullet.y += 100
         elif key == arcade.key.DOWN:
             self.player.direction = DIR_DOWN
+            self.player.y -= 100
+            self.bullet.y -= 100
         elif key == arcade.key.SPACE:
             self.bullet.update()
 
