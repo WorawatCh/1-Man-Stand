@@ -56,6 +56,8 @@ class Zombie:
        if self.x <= 180 or (self.x <= self.world.player.bullet.x and self.y == self.world.player.bullet.y):
            self.x = self.world.width
            self.y = random.choice(LANE_LIST)
+           self.world.player.bullet.isShoot = False
+           self.world.player.bullet.setStart()
        self.x -= ZOMBIE_SPEED
 
 
@@ -79,9 +81,11 @@ class Bullet:
             self.x += BULLET_SPEED
         if self.x > self.world.width:
             self.isShoot = False
-            self.x = -100
-            self.y = -100
-
+            self.setStart()
+            
+    def setStart(self):
+        self.x = -100
+        self.y = -100
 
 class World:
     def __init__(self, width, height):
@@ -101,4 +105,5 @@ class World:
         elif key == arcade.key.DOWN:
             self.player.y -= 100
         elif key == arcade.key.SPACE:
-            self.player.shoot()
+            if self.player.bullet.isShoot == False:
+                 self.player.shoot()
