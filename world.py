@@ -5,6 +5,7 @@ from model import Player, World, Bullet
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 700
 
+
 class ModelSprite(arcade.Sprite):
     def __init__(self, *args, **kwargs):
         self.model = kwargs.pop('model', None)
@@ -19,6 +20,7 @@ class ModelSprite(arcade.Sprite):
         self.sync_with_model()
         super().draw()
 
+
 class SpaceGameWindow(arcade.Window):
     def __init__(self, width, height):
         super().__init__(width, height)
@@ -31,10 +33,9 @@ class SpaceGameWindow(arcade.Window):
         self.player_sprite = ModelSprite(
             'images/soilder.png', model=self.world.player)
         self.zombie_sprite = ModelSprite(
-            'images/zombie.png',model=self.world.zombie)
+            'images/zombie.png', model=self.world.zombie)
         self.laser_sprite = ModelSprite(
-            'images/laser.png', model=self.world.player.bullet1)
-
+            'images/laser1.png', model=self.world.player.bullet)
 
     def on_draw(self):
         arcade.start_render()
@@ -49,7 +50,6 @@ class SpaceGameWindow(arcade.Window):
 
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
-    
 
 
 if __name__ == '__main__':
