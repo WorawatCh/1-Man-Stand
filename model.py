@@ -18,7 +18,7 @@ MAX_LANE = 650
 MIN_LANE = 0
 
 BULLET_SPEED = 5
-ZOMBIE_SPEED = 7
+ZOMBIE_SPEED = [5,7,10,13,15]
 
 BULLET_LIST = [5]
 LANE_LIST = [100, 200, 300, 400, 500]
@@ -58,7 +58,7 @@ class Zombie:
            self.y = random.choice(LANE_LIST)
            self.world.player.bullet.isShoot = False
            self.world.player.bullet.setStart()
-       self.x -= ZOMBIE_SPEED
+       self.x -= random.choice(ZOMBIE_SPEED)
 
 
 class Bullet:
