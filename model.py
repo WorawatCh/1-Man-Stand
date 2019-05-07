@@ -1,19 +1,7 @@
 import arcade.key, random
 
-DIR_STILL = 0
-
-DIR_UP = 1
-DIR_RIGHT = 2
-DIR_DOWN = 3
-DIR_LEFT = 4
-
-DIR_OFFSET = {DIR_STILL: (0, 0),
-              DIR_UP: (0, 1),
-              DIR_RIGHT: (1, 0),
-              DIR_DOWN: (0, -1),
-              DIR_LEFT: (-1, 0)}
-
 STOP_MOVE = True
+GAMEEND = False
 MAX_LANE = 650
 MIN_LANE = 0
 
@@ -21,7 +9,9 @@ BULLET_SPEED = 5
 ZOMBIE_SPEED = [5,7,10,13,15]
 
 BULLET_LIST = [5]
-LANE_LIST = [100, 200, 300, 400, 500]
+LANE_LIST = [100, 200, 300, 400, 500,600]
+
+SCORE_LIST = []
 
 
 class Player:
@@ -51,15 +41,22 @@ class Zombie:
         self.x = x
         self.y = y
         self.wait_time = 0
+        self.hit = 0
 
     def update(self, delta):
-       if self.x <= 180 or (self.x <= self.world.player.bullet.x and self.y == self.world.player.bullet.y):
-           self.x = self.world.width
-           self.y = random.choice(LANE_LIST)
+       if self.x <= self.world.player.bullet.x and self.y == self.world.player.bullet.y:
+           self.setPosition()
            self.world.player.bullet.isShoot = False
            self.world.player.bullet.setStart()
+           self.hit+=1
+       if self.x <= 180:
+            GAMEEND = True
+            print("Goodbye")
        self.x -= random.choice(ZOMBIE_SPEED)
 
+    def setPosition(self):
+        self.x = self.world.width
+        self.y = random.choice(LANE_LIST)
 
 class Bullet:
     DIR_HORIZONTAL = 0
@@ -107,3 +104,6 @@ class World:
         elif key == arcade.key.SPACE:
             if self.player.bullet.isShoot == False:
                  self.player.shoot()
+
+    def countScore(self):
+        self.zombie.hit
