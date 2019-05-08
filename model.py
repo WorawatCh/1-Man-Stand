@@ -1,7 +1,6 @@
 import arcade.key, random
 
 STOP_MOVE = True
-GAMEEND = False
 MAX_LANE = 650
 MIN_LANE = 0
 
@@ -22,6 +21,7 @@ class Player:
         self.y = y
         self.wait_time = 0
         self.bullet = Bullet(self.world, -100, -100)
+        self.score = 0
 
     def update(self, delta):
         if self.y >= MAX_LANE:
@@ -40,7 +40,6 @@ class Zombie:
         self.world = world
         self.x = x
         self.y = y
-        self.wait_time = 0
         self.hit = 0
 
     def update(self, delta):
@@ -48,10 +47,8 @@ class Zombie:
            self.setPosition()
            self.world.player.bullet.isShoot = False
            self.world.player.bullet.setStart()
-           self.hit+=1
-       if self.x <= 180:
-            GAMEEND = True
-            print("Goodbye")
+           self.world.player.score += 1
+       self.world.checkGameEnd()
        self.x -= random.choice(ZOMBIE_SPEED)
 
     def setPosition(self):
@@ -91,6 +88,7 @@ class World:
 
         self.player = Player(self, 80, 300)
         self.zombie = Zombie(self, self.width, random.choice(LANE_LIST))
+        self.gameEnd = False
 
     def update(self, delta):
         self.player.update(delta)
@@ -105,5 +103,6 @@ class World:
             if self.player.bullet.isShoot == False:
                  self.player.shoot()
 
-    def countScore(self):
-        self.zombie.hit
+    def checkGameEnd(self):
+         if self.zombie.x <= 180:
+            self.gameEnd = True

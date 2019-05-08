@@ -1,6 +1,6 @@
 import arcade
 
-from model import Player, World, Bullet, GAMEEND, SCORE_LIST
+from model import Player, World, Bullet
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 700
@@ -45,7 +45,6 @@ class SpaceGameWindow(arcade.Window):
         arcade.start_render()
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                       SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
-        self.score = self.world.countScore
         output = f"Score: {self.score}"
         arcade.draw_text(output, 800, 650, arcade.color.WHITE, 14)
         self.player_sprite.draw()
@@ -64,10 +63,12 @@ class SpaceGameWindow(arcade.Window):
         arcade.draw_text(output, 310, 300, arcade.color.WHITE, 24)
 
     def update(self, delta):
-        if GAMEEND == True:
-            self.draw_game_over()
+        if self.world.gameEnd == True:
+            # self.draw_game_over()
             exit()
+        self.score = self.world.player.score
         self.world.update(delta)
+
 
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
