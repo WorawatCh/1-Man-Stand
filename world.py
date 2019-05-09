@@ -43,8 +43,11 @@ class SpaceGameWindow(arcade.Window):
         self.world.on_key_press(key, key_modifiers)
         if key == arcade.key.P and self.current_state == INSTRUCTION_PAGE:
             self.current_state = GAME_RUNNING
-        if key == arcade.key.R and self.current_state == GAME_END:
+        elif key == arcade.key.R and self.current_state == GAME_END:
             self.current_state = GAME_RUNNING
+            self.world.restart()
+        elif key == arcade.key.Q and self.current_state == GAME_END:
+             exit()
 
     def update(self, delta):
         if self.current_state == GAME_RUNNING:
@@ -55,19 +58,31 @@ class SpaceGameWindow(arcade.Window):
 
     def draw_instruction_page(self):
         arcade.set_background_color(arcade.color.BABY_BLUE)
+        output = "1 MAN STAND"
+        arcade.draw_text(output, 130, 400, arcade.color.WHITE, 70)
+        output = "Press P To Play"
+        arcade.draw_text(output, 310, 300, arcade.color.WHITE, 30)
 
     def draw_game(self):
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                       SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
         arcade.set_background_color(arcade.color.BABY_PINK)
         output = f"Score: {self.score}"
-        arcade.draw_text(output, 790, 650, arcade.color.WHITE, 20)
+        arcade.draw_text(output, 730, 630, arcade.color.WHITE, 30)
         self.player_sprite.draw()
         self.zombie_sprite.draw()
         self.laser_sprite.draw()
 
     def draw_game_over(self):
         arcade.set_background_color(arcade.color.GO_GREEN)
+        output = "GAME OVER"
+        arcade.draw_text(output, 165, 400, arcade.color.WHITE, 70)
+        output = f"Your score is {self.score}"
+        arcade.draw_text(output, 310, 300, arcade.color.WHITE, 30)
+        output = "Press R to restart"
+        arcade.draw_text(output, 205, 200, arcade.color.WHITE, 20)
+        output = "Press Q to quiz"
+        arcade.draw_text(output, 515, 200, arcade.color.WHITE, 20)
 
     def on_draw(self):
         arcade.start_render()

@@ -73,10 +73,10 @@ class Bullet:
         if self.isShoot == True:
             self.x += BULLET_SPEED
         if self.x > self.world.width:
-            self.isShoot = False
             self.setStart()
             
     def setStart(self):
+        self.isShoot = False
         self.x = -100
         self.y = -100
 
@@ -106,3 +106,11 @@ class World:
          if self.zombie.x <= 160:
             self.gameEnd = True
             self.player.score = 0
+    
+    def restart(self):
+        self.player.x = 80
+        self.player.y = 300
+        self.zombie.x = self.width
+        self.zombie.y = random.choice(LANE_LIST)
+        self.player.bullet.setStart()
+        self.gameEnd = False
