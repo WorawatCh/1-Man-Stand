@@ -4,7 +4,7 @@ STOP_MOVE = True
 MAX_LANE = 650
 MIN_LANE = 0
 
-BULLET_SPEED = 5
+BULLET_SPEED = 7
 ZOMBIE_SPEED = [5,7,10,13,15]
 
 BULLET_LIST = [5]
@@ -19,7 +19,6 @@ class Player:
         self.world = world
         self.x = x
         self.y = y
-        self.wait_time = 0
         self.bullet = Bullet(self.world, -100, -100)
         self.score = 0
 
@@ -104,5 +103,6 @@ class World:
                  self.player.shoot()
 
     def checkGameEnd(self):
-         if self.zombie.x <= 180:
+         if self.zombie.x <= 160:
             self.gameEnd = True
+            self.player.score = 0
