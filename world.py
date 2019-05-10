@@ -43,9 +43,10 @@ class SpaceGameWindow(arcade.Window):
         self.world.on_key_press(key, key_modifiers)
         if key == arcade.key.P and self.current_state == INSTRUCTION_PAGE:
             self.current_state = GAME_RUNNING
+            self.world.setStart()
         elif key == arcade.key.R and self.current_state == GAME_END:
             self.current_state = GAME_RUNNING
-            self.world.restart()
+            self.world.setStart()
         elif key == arcade.key.Q and self.current_state == GAME_END:
              exit()
 

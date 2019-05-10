@@ -107,7 +107,7 @@ class World:
             self.gameEnd = True
             self.player.score = 0
     
-    def restart(self):
+    def setStart(self):
         self.player.x = 80
         self.player.y = 300
         self.zombie.x = self.width
