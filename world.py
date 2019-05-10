@@ -81,7 +81,7 @@ class SpaceGameWindow(arcade.Window):
         arcade.draw_text(output, 310, 300, arcade.color.WHITE, 30)
         output = "Press R to restart"
         arcade.draw_text(output, 205, 200, arcade.color.WHITE, 20)
-        output = "Press Q to quiz"
+        output = "Press Q to quit"
         arcade.draw_text(output, 515, 200, arcade.color.WHITE, 20)
 
     def on_draw(self):
