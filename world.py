@@ -72,6 +72,7 @@ class SpaceGameWindow(arcade.Window):
         arcade.draw_text(output, 730, 630, arcade.color.WHITE, 30)
         self.player_sprite.draw()
         self.zombie_sprite.draw()
+        self.zombie_sprite.draw()
         self.laser_sprite.draw()
 
     def draw_game_over(self):
